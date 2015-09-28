@@ -1,0 +1,19 @@
+﻿@charset "UTF-8";
+ 
+html{color:#000;background:#fff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{padding:0;margin:0; list-style-type:none; font-family:"微软雅黑";}
+body,button,input,select,textarea{font:12px/1.5 tahoma,arial,\5b8b\4f53,sans-serif;}
+table{border-collapse:collapse;border-spacing:0;font-size: inherit;font:100%;}
+caption,th{text-align:left;}
+fieldset,img{border:none;}
+ul,ol{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+input,button,textarea,select{font-family: inherit;font-size: inherit;font-weight: inherit;vertical-align:middle;*font-size:100%;}
+address,caption,cite,code,dfn,em,i,b,strong,th,var,optgroup{font-style:normal;font-weight:normal;}
+.left{float:left;}
+.right{float:right;}
+.hide {display:none;}
+.clearfix:after {content:'\0020';display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{zoom:1;}
+a{ text-decoration:none; outline: none; cursor:pointer;}
+a:hover{ text-decoration:none;}
