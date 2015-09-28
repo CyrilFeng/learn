@@ -1,1 +1,1 @@
-fela是科大国创自主研发的Ajax框架
+Fela是一个轻量的、基于JQuery1.x的ajax框架
