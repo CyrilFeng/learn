@@ -73,10 +73,15 @@ Fela = {
 	},
 	tbar: function(parent4Append, o) {
 		$(parent4Append).append('<div class="table_top clearfix"><div class="btn_group left"></div></div>');
+		var count=0;
+		for(var i in o){
+			count++;
+		}
+		
 		var c = 0;
 		for (var i in o) {
 			c++;
-			if (c == Object.keys(o).length) {
+			if (c ==count) {
 				var tmp = $("<a href='javascript:void(0)' class='last'>" + i + "</a>");
 				tmp.bind("click", o[i]);
 				$(parent4Append + " .btn_group.left").append(tmp);
