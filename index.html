@@ -20,6 +20,11 @@
 
     <section class="main-content">
       <h3>
+<a id="基于单例对象" class="anchor" href="#%E5%9F%BA%E4%BA%8E%E5%8D%95%E4%BE%8B%E5%AF%B9%E8%B1%A1" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于单例对象</h3>
+
+<p>Fela是一个对象，单例对象的使用使Fela拥有良好的扩展性</p>
+
+<h3>
 <a id="基于克隆" class="anchor" href="#%E5%9F%BA%E4%BA%8E%E5%85%8B%E9%9A%86" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于克隆</h3>
 
 <p>和传统Ajax框架不同，单例对象的使用使得Fela更轻量级，我们发现，在javascript中单例有很多优势，诸如更小的内存开销，加载即创建，方便覆盖重写，对象结构清晰以及易于和json互转等；但是也带来一些问题，比如一个页面里只有一个对象，为此，我们使用克隆代替new来生成新的对象，避免了初始化大对象时构造方法中的耦合，也使得我们对大对象得以按需取用，书写结构清晰的代码。</p>
