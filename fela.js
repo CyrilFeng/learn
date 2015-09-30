@@ -1,4 +1,5 @@
 Fela = {
+		
 	queryKeys: [],
 	data: {},
 	initTab: function() {
@@ -35,6 +36,10 @@ Fela = {
 	showCheckbox: true,
 	initModal: function() {
 		$("body").append("<div id='modal' style='z-index:999;display:none;position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:black;opacity:0.2;filter:alpha(opacity=20);'></div>");
+	},
+	closeWin:function(){
+		$('#tmpwin').remove();
+		$('#modal').hide();
 	},
 	createWin: function(w, h, name, src) {
 		$("#modal").height($(document).height());
@@ -204,15 +209,22 @@ Fela = {
 		$(parent4Append).append("<div class='" + className + "' id=" + id + "></div>");
 		return this;
 	},
+	selectedRows:function(id){
+	 	var arr=new Array();
+   	 $("#"+id+" input[id]:checked").each(function(){
+   		arr.push($(this).prop("id"));
+   	 });
+   	 return arr;
+	},
 	toggle: function(c, id) {
 		if (c.checked) {
 			$("#" + id + " input:checkbox").each(function() {
-				$(this)[0].checked = true;
+				$(this).prop("checked", true);
 			});
 
 		} else {
 			$("#" + id + " input:checkbox").each(function() {
-				$(this).attr("checked", false);
+				$(this).prop("checked", false);
 			});
 		}
 	},
@@ -381,6 +393,9 @@ Fela = {
 	},
 	initParam: function() {
 
+	},
+	refresh:function(id){
+	this.reset(id);
 	},
 	reset: function(id) {
 		this.initParam();
