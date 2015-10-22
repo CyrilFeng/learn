@@ -22,6 +22,8 @@ Fela = {
 
 		return this;
 	},
+	offsetTop:0,
+	offsetLeft:0,
 	url: "",
 	interval: 10,
 	cur: 1,
@@ -45,12 +47,12 @@ Fela = {
 		$("#modal").height($(document).height());
 		$("#modal").show();
 
-		$("body").append("<div id='tmpwin' style='z-index:999;position:absolute;top:200px;left:200px;width:" + w + "px;height:" + h + "px;background-color:white;border:solid 3px #295AA6;'><div style='width:100%;height:25px;background-color:#295AA6;color:white;position:relative;'><div style='position:absolute;top:2px;right:7px;cursor:pointer;' onclick=\"$('#tmpwin').remove();$('#modal').hide();\">[关闭]</div><div style='position:absolute;top:2px;left:7px;'>" + name + "</div></div><iframe frameborder='none' style='border:0px;width:100%;height:" + (h - 27) + "px;' src='" + src + "'> </div>");
-		$("#tmpwin").css("top", $(window).scrollTop() + ($(window).height() - $("#tmpwin").height()) / 2);
-		$("#tmpwin").css("left", ($(window).width() - $("#tmpwin").width()) / 2);
+		$("body").append("<div id='tmpwin' style='z-index:999;position:absolute;top:200px;left:200px;width:" + w + "px;height:" + h + "px;background-color:white;border:solid 3px #F20C00'><div style='width:100%;height:25px;background-color:#F20C00;color:white;position:relative;'><div style='position:absolute;top:2px;right:7px;cursor:pointer;' onclick=\"$('#tmpwin').remove();$('#modal').hide();\">[关闭]</div><div style='position:absolute;top:2px;left:7px;'>" + name + "</div></div><iframe frameborder='none' style='border:0px;width:100%;height:" + (h - 27) + "px;' src='" + src + "'> </div>");
+		$("#tmpwin").css("top", $(window).scrollTop() + ($(window).height() - $("#tmpwin").height()) / 2-this.offsetTop);
+		$("#tmpwin").css("left", ($(window).width() - $("#tmpwin").width()) / 2-this.offsetLeft);
 		window.onresize = function() {
-			$("#tmpwin").css("top", $(window).scrollTop() + ($(window).height() - $("#tmpwin").height()) / 2);
-			$("#tmpwin").css("left", ($(window).width() - $("#tmpwin").width()) / 2);
+			$("#tmpwin").css("top", $(window).scrollTop() + ($(window).height() - $("#tmpwin").height()) / 2-this.offsetTop);
+			$("#tmpwin").css("left", ($(window).width() - $("#tmpwin").width()) / 2-this.offsetLeft);
 
 		};
 	},
@@ -160,7 +162,7 @@ Fela = {
 		$("#" + id).empty();
 		var pages = this.totalPage();
 		var lThreshold = parseInt((this.cur - 1) / this.interval) * this.interval + 1;
-		var l = $('<a href="javascript:void(0)" class="prev">Prev</a>');
+		var l = $('<a href="javascript:void(0)" class="prev">上一页</a>');
 		l.bind("click", function() {
 			_this.prevPaging(id);
 		});
@@ -185,7 +187,7 @@ Fela = {
 
 
 		}
-		var r = $('<a href="javascript:void(0)" class="next">Next</a>');
+		var r = $('<a href="javascript:void(0)" class="next">下一页</a>');
 		r.bind("click", function() {
 			_this.nextPaging(id);
 		});
@@ -247,7 +249,7 @@ Fela = {
 		for (var i = 0; i < this.response.rows.length; i++) {
 			s += '<tr>';
 			if (this.showCheckbox) s += '<td><input  id=' + this.response.rows[i][this.IDColName] + ' type="checkbox" /></td>';
-			s += '<td class=' + this.firstClass + '>' + this.response.rows[i][this.keys[0]] + '</td>';
+			s += '<td class=' + this.firstClass + '>' + this.replace(this.keys[0],this.response.rows[i][this.keys[0]]) + '</td>';
 			for (var j = 1; j < this.keys.length; j++) {
 				s += '<td>' + this.replace(this.keys[j], this.response.rows[i][this.keys[j]]) + '</td>';
 			}
@@ -257,6 +259,14 @@ Fela = {
 		}
 		s += '</table>';
 		$("#" + id).html(s);
+		$("#" + id + " tr:gt(0)").click(
+
+				function(e) {
+            e.stopPropagation();
+		 	_this.doRowClick($(this).children(":eq(0)").children("input").attr("id"));
+ 
+
+				});
 		if (this.showToolbar) {
 			$("#" + id + " .write").click(
 
@@ -357,6 +367,9 @@ Fela = {
 		});
 		return this;
 	},
+	doRowClick:function(id){
+ 
+	},
 	doEdit: function(id) {
 
 	},
@@ -369,7 +382,7 @@ Fela = {
 		return n;
 	},
 	query: function(id) {
-
+		this.preDeal();
 		this.cur = 1;
 		this.start = 0;
 		this.data.start = this.start;
@@ -390,6 +403,7 @@ Fela = {
 
 		this.generateTable(id);
 		this.calcPaging($("#" + id).next("div").attr("id"));
+		this.postDeal();
 	},
 	initParam: function() {
 
@@ -430,15 +444,26 @@ Fela = {
 		this.calcPaging($("#" + id).next("div").attr("id"));
 
 	},
-	onceExe: function(id) {
-		this.initModal();
+	preDeal:function(){
+		
+		
+	},
+	postDeal:function(){
+		
+	},
+	initEnter:function(id){
 		var _this = this;
 		$(document).keydown(function(e) {
 			if (e.keyCode == 13) {
 				_this.query(id);
-			}
+	 	}
 
 		});
+	},
+	onceExe: function(id) {
+		this.initModal();
+		this.initEnter(id);
+	 
 		$(".term.clearfix .arrow.arrow_up").click(function() {
 
 			if ($(this).hasClass("arrow_up")) {
